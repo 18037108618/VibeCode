@@ -13,6 +13,8 @@ struct ContentView: View {
     @State private var showCertificatePopup = false
     @State private var certificateImage: UIImage?
     @State private var showConfetti = false
+    @State private var confettiId: UUID = UUID()  // 用于标识每次喝彩动画
+    @State private var currentConfettiId: UUID?   // 当前正在执行的喝彩动画ID
     
     // 输入框字数限制
     private let personNameMaxLength = 15
@@ -256,6 +258,7 @@ struct ContentView: View {
                 // 五彩纸屑效果
                 if showConfetti {
                     ConfettiView()
+                        .id(confettiId)  // 使用唯一ID确保每次都是全新的动画实例
                         .allowsHitTesting(false)
                 }
                 
@@ -312,13 +315,30 @@ struct ContentView: View {
         if isConsecutiveClick {
             // 连续点击：只显示气泡动画，不显示纸屑效果
             // 气泡已经在 handleClick 中添加了
+            // 播放气泡声音
+            SoundManager.shared.playBubbleSound()
         } else {
             // 单点：触发纸屑效果
-            showConfetti = true
+            // 生成新的动画ID，确保创建全新的纸屑动画实例
+            let newConfettiId = UUID()
+            confettiId = newConfettiId
+            currentConfettiId = newConfettiId
             
-            // 1.5秒后关闭纸屑效果
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
-                showConfetti = false
+            // 先关闭再开启，确保触发新的动画
+            showConfetti = false
+            DispatchQueue.main.async {
+                showConfetti = true
+                // 播放喝彩声音
+                SoundManager.shared.playCheerSound()
+            }
+            
+            // 5秒后关闭纸屑效果（确保所有纸屑都掉出屏幕）
+            // 只有当ID匹配时才关闭，避免关闭新触发的动画
+            DispatchQueue.main.asyncAfter(deadline: .now() + 5.0) { [self] in
+                if currentConfettiId == newConfettiId {
+                    showConfetti = false
+                    currentConfettiId = nil
+                }
             }
         }
     }

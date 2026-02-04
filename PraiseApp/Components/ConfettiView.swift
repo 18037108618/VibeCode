@@ -77,7 +77,11 @@ struct ConfettiPiece: View {
     @State private var offsetY: CGFloat = 0
     @State private var offsetX: CGFloat = 0
     @State private var rotation: Double = 0
-    @State private var opacity: Double = 1.0
+    
+    // 计算纸屑掉落的总距离（从起始位置到屏幕底部外）
+    private var fallDistance: CGFloat {
+        UIScreen.main.bounds.height - particle.y + 100
+    }
     
     var body: some View {
         confettiShapeView
@@ -85,7 +89,6 @@ struct ConfettiPiece: View {
             .rotationEffect(.degrees(rotation))
             .rotation3DEffect(.degrees(rotation * 2), axis: (x: 1, y: 0, z: 0))
             .position(x: particle.x + offsetX, y: particle.y + offsetY)
-            .opacity(opacity)
             .onAppear {
                 startAnimation()
             }
@@ -110,16 +113,17 @@ struct ConfettiPiece: View {
     }
     
     private func startAnimation() {
-        let duration = Double.random(in: 2.0...3.5)
+        // 根据下落速度计算动画时长
+        // fallSpeed 范围是 3...8，值越大速度越快
+        // 使用反向计算：速度越快时间越短，速度越慢时间越长
+        let speedFactor = (8.0 - particle.fallSpeed + 3.0) / 5.0  // 范围约 0.6 ~ 1.6
+        let duration = 3.0 + speedFactor * 1.5  // 范围约 3.9 ~ 5.4 秒
         
-        withAnimation(.linear(duration: duration)) {
-            offsetY = UIScreen.main.bounds.height + 200
-            offsetX = CGFloat(particle.horizontalDrift * 100)
-            rotation = particle.rotation + particle.rotationSpeed * 50
-        }
-        
-        withAnimation(.linear(duration: duration).delay(duration * 0.7)) {
-            opacity = 0
+        // 纸屑下落动画 - 保持完全可见直到掉出屏幕
+        withAnimation(.easeIn(duration: duration)) {
+            offsetY = fallDistance
+            offsetX = CGFloat(particle.horizontalDrift * 80)
+            rotation = particle.rotation + particle.rotationSpeed * 60
         }
     }
 }

@@ -21,6 +21,8 @@
 		E11111110000000000000011 /* PraiseGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10000000000000000000011 /* PraiseGenerator.swift */; };
 		E11111110000000000000012 /* ToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10000000000000000000012 /* ToastView.swift */; };
 		E11111110000000000000013 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10000000000000000000013 /* Extensions.swift */; };
+		E11111110000000000000014 /* SoundManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10000000000000000000014 /* SoundManager.swift */; };
+		E11111110000000000000015 /* cheer.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = E10000000000000000000015 /* cheer.mp3 */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,6 +41,8 @@
 		E10000000000000000000011 /* PraiseGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PraiseGenerator.swift; sourceTree = "<group>"; };
 		E10000000000000000000012 /* ToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastView.swift; sourceTree = "<group>"; };
 		E10000000000000000000013 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		E10000000000000000000014 /* SoundManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundManager.swift; sourceTree = "<group>"; };
+		E10000000000000000000015 /* cheer.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = cheer.mp3; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,6 +72,7 @@
 				E13333330000000000000005 /* ViewModels */,
 				E13333330000000000000006 /* Components */,
 				E13333330000000000000007 /* Utils */,
+				E13333330000000000000008 /* Sounds */,
 				E10000000000000000000003 /* Assets.xcassets */,
 			);
 			path = PraiseApp;
@@ -117,8 +122,17 @@
 				E10000000000000000000010 /* NetworkManager.swift */,
 				E10000000000000000000011 /* PraiseGenerator.swift */,
 				E10000000000000000000013 /* Extensions.swift */,
+				E10000000000000000000014 /* SoundManager.swift */,
 			);
 			path = Utils;
+			sourceTree = "<group>";
+		};
+		E13333330000000000000008 /* Sounds */ = {
+			isa = PBXGroup;
+			children = (
+				E10000000000000000000015 /* cheer.mp3 */,
+			);
+			path = Sounds;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -181,6 +195,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E11111110000000000000003 /* Assets.xcassets in Resources */,
+				E11111110000000000000015 /* cheer.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -204,6 +219,7 @@
 				E11111110000000000000011 /* PraiseGenerator.swift in Sources */,
 				E11111110000000000000012 /* ToastView.swift in Sources */,
 				E11111110000000000000013 /* Extensions.swift in Sources */,
+				E11111110000000000000014 /* SoundManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

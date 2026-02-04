@@ -260,6 +260,9 @@ class BubbleManager: ObservableObject {
             )
         )
         bubbles.append(bubble)
+        
+        // 播放气泡声音
+        SoundManager.shared.playBubbleSound()
     }
 }
 
